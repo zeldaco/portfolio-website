@@ -1048,6 +1048,22 @@ window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',
   }
 });
 
+// Initialize rotating text when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  const rotatingElement = document.getElementById('rotating-specialty');
+  
+  if (rotatingElement) {
+    new RotatingText(rotatingElement, {
+      texts: ['click', 'interaction', 'design', 'experience'],
+      rotationInterval: 2500,
+      staggerDuration: 30,
+      staggerFrom: 'last',
+      splitBy: 'characters',
+      animationDuration: 500
+    });
+  }
+});
+
 // Export for potential external use
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { App, Cursor, Navigation, ScrollAnimations, Performance, Forms, Accessibility };
