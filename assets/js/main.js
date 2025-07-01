@@ -1,7 +1,7 @@
 /**
  * Main JavaScript File
  * Professional Portfolio Website
- * 
+ *
  * Features:
  * - Custom cursor functionality
  * - Navigation controls
@@ -165,35 +165,35 @@ function smoothScrollTo(element, offset = 0) {
 // ==========================================================================
 
 const Cursor = {
-  /**
-   * Initialize custom cursor
-   */
-  init() {
-    if (App.state.isMobile || !App.elements.cursor) return;
+/**
+* Initialize custom cursor
+*/
+    init() {
+        if (App.state.isMobile || !App.elements.cursor) return;
 
-    this.cursor = App.elements.cursor;
-    this.mouseX = 0;
-    this.mouseY = 0;
-    this.cursorX = 0;
-    this.cursorY = 0;
-    this.isVisible = true;
+        this.cursor = App.elements.cursor;
+        this.mouseX = 0;
+        this.mouseY = 0;
+        this.cursorX = 0;
+        this.cursorY = 0;
+        this.isVisible = true;
 
-    this.bindEvents();
-    this.animate();
-  },
+        this.bindEvents();
+        this.animate();
+    },
 
-  /**
-   * Bind cursor events
-   */
-  bindEvents() {
-    // Mouse move event
-    document.addEventListener('mousemove', (e) => {
-      this.mouseX = e.clientX;
-      this.mouseY = e.clientY;
-      
-      if (!this.isVisible) {
-        this.show();
-      }
+/**
+* Bind cursor events
+*/
+    bindEvents() {
+        // Mouse move event
+        document.addEventListener('mousemove', (e) => {
+        this.mouseX = e.clientX;
+        this.mouseY = e.clientY;
+        
+        if (!this.isVisible) {
+            this.show();
+        }
     });
 
     // Mouse enter/leave events
@@ -206,57 +206,57 @@ const Cursor = {
 
     // Interactive element events
     App.elements.interactiveElements?.forEach(element => {
-      element.addEventListener('mouseenter', () => this.addState('hover'));
-      element.addEventListener('mouseleave', () => this.removeState('hover'));
+        element.addEventListener('mouseenter', () => this.addState('hover'));
+        element.addEventListener('mouseleave', () => this.removeState('hover'));
     });
-  },
+},
 
-  /**
-   * Animate cursor position
-   */
-  animate() {
-    // Smooth cursor movement
-    this.cursorX += (this.mouseX - this.cursorX) * 0.15;
-    this.cursorY += (this.mouseY - this.cursorY) * 0.15;
+    /**
+    * Animate cursor position
+    */
+    animate() {
+        // Smooth cursor movement
+        this.cursorX += (this.mouseX - this.cursorX) * 0.05;
+        this.cursorY += (this.mouseY - this.cursorY) * 0.05;
 
-    if (this.cursor) {
-      this.cursor.style.transform = `translate(${this.cursorX}px, ${this.cursorY}px)`;
+        if (this.cursor) {
+            this.cursor.style.transform = `translate(${this.cursorX}px, ${this.cursorY}px)`;
+        }
+
+        requestAnimationFrame(() => this.animate());
+    },
+
+    /**
+    * Add cursor state
+    * @param {string} state - State class name
+    */
+    addState(state) {
+        this.cursor?.classList.add(`cursor--${state}`);
+    },
+
+    /**
+    * Remove cursor state
+    * @param {string} state - State class name
+    */
+    removeState(state) {
+        this.cursor?.classList.remove(`cursor--${state}`);
+    },
+
+    /**
+    * Show cursor
+    */
+    show() {
+        this.isVisible = true;
+        this.cursor?.classList.remove('cursor--hidden');
+    },
+
+    /**
+    * Hide cursor
+    */
+    hide() {
+        this.isVisible = false;
+        this.cursor?.classList.add('cursor--hidden');
     }
-
-    requestAnimationFrame(() => this.animate());
-  },
-
-  /**
-   * Add cursor state
-   * @param {string} state - State class name
-   */
-  addState(state) {
-    this.cursor?.classList.add(`cursor--${state}`);
-  },
-
-  /**
-   * Remove cursor state
-   * @param {string} state - State class name
-   */
-  removeState(state) {
-    this.cursor?.classList.remove(`cursor--${state}`);
-  },
-
-  /**
-   * Show cursor
-   */
-  show() {
-    this.isVisible = true;
-    this.cursor?.classList.remove('cursor--hidden');
-  },
-
-  /**
-   * Hide cursor
-   */
-  hide() {
-    this.isVisible = false;
-    this.cursor?.classList.add('cursor--hidden');
-  }
 };
 
 // ==========================================================================
